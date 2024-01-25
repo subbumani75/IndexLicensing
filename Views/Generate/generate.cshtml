@@ -1,0 +1,423 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using IndexInfo.Models;
+@model IndexInfo.Models.ModuleMaster;
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>  </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/selectize.js-master/dist/css/selectize.bootstrap2.css" rel="stylesheet" />
+    <link href="~/selectize.js-master/dist/css/selectize.bootstrap3.css" rel="stylesheet" />
+    <link href="~/selectize.js-master/dist/css/selectize.bootstrap4.css" rel="stylesheet" />
+    <link href="~/selectize.js-master/dist/css/selectize.bootstrap5.css" rel="stylesheet" />
+    <link href="~/selectize.js-master/dist/css/selectize.css" rel="stylesheet" />
+    <link href="~/selectize.js-master/dist/css/selectize.default.css" rel="stylesheet" />
+
+    <link href="~/toastr-master/toastr-master/build/toastr.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+
+    <style>
+        #GenerateKey:hover {
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6) !important;
+        }
+
+        .mandatory {
+            color: red;
+        }
+
+        .selectize-input {
+            padding: 4px 0px !important;
+        }
+
+        input[type='checkbox'] {
+            width: 15px !important
+        }
+
+        input[type=checkbox] {
+            margin: -11px -18px 0 !important;
+        }
+
+        .caret {
+            display: none !important;
+        }
+
+
+        .form-select {
+            font-size: 1rem !important;
+        }
+
+        #LicenseType {
+            padding: 10px !important;
+            width: 100% !important;
+            border-color: #9b59b6;
+            border-bottom-width: 2px;
+        }
+
+        #Tenant{
+            border-color: #9b59b6;
+            border-bottom-width: 2px;
+        }
+        #txtPrivateKey{
+            border-color: #9b59b6;
+        }
+
+        #txtSerialKey{
+            border-color: #9b59b6;
+        }
+        .selectize-input.items.not-full.has-options {
+            border-color: #9b59b6;
+            border-bottom-width: 2px;
+        }
+
+        #CompanyName {
+            padding: 10px !important;
+            width: 100% !important;
+            border-color: #9b59b6;
+            border-bottom-width: 2px;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+
+            .container .title {
+                font-size: 25px;
+                font-weight: 500;
+                position: relative;
+            }
+
+                .container .title::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    height: 3px;
+                    width: 30px;
+                    border-radius: 5px;
+                }
+
+        .content section .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        section .user-details .input-box {
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+
+        section .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-details .input-box input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+            .user-details .input-box input:focus,
+            .user-details .input-box input:valid {
+                border-color: #9b59b6;
+            }
+
+        section .gender-details .gender-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        section .category {
+            display: flex;
+            width: 80%;
+            margin: 14px 0;
+            justify-content: space-between;
+        }
+
+            section .category label {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+                section .category label .dot {
+                    height: 18px;
+                    width: 18px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    background: #d9d9d9;
+                    border: 5px solid transparent;
+                    transition: all 0.3s ease;
+                }
+
+        #dot-1:checked ~ .category label .one,
+        #dot-2:checked ~ .category label .two,
+        #dot-3:checked ~ .category label .three {
+            background: #9b59b6;
+            border-color: #d9d9d9;
+        }
+
+        section input[type="radio"] {
+            display: none;
+        }
+
+        section .button {
+            height: 45px;
+            margin: 35px 0
+        }
+
+            section .button input {
+                height: 100%;
+                width: 100%;
+                border-radius: 5px;
+                border: none;
+                color: #fff;
+                font-size: 18px;
+                font-weight: 500;
+                letter-spacing: 1px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            }
+
+                section .button input:hover {
+                    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+                }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Generate license key</div>
+        <div class="content">
+            <section>
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">ProductID <span class="mandatory">*</span></span>
+                        <input type="text" id="txtProductID" name="txtProductID" value="@ViewBag.ProductID">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Domain</span>
+                        <input type="text" id="Domain" name="Domain">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Tenant Name<span class="mandatory">*</span></span>
+                        <select asp-for="TenantBind" name="Tenant"
+                                class="form-select demo-default" id="Tenant"
+                                asp-items="@(new SelectList(ViewBag.GetListOfCompanyName,"TenantID", "TenantName"))">
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Valid Days<span class="mandatory">*</span></span>
+                        <input type="text" value="30" name="txtDays" id="txtDays">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Utilization<span class="mandatory">*</span></span>
+                        <input type="text" id="txtUtilization" value="1" name="txtUtilization">
+                    </div>
+                    <div class="input-box" style="margin-top:4px;">
+                        <span class="details">License Type<span class="mandatory">*</span></span>
+                        <select name="LicenseType" id="LicenseType" class="form-select">
+                            <option value="Standard">Standard</option>
+                            <option value="Trial">Trial</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <span class="details" style="margin-bottom:0px!important">Module<span class="mandatory">*</span></span>
+                        <select asp-for="ModuleNameBind"
+                                class="form-select demo-default" id="Module" multiple
+                                asp-items="@(new SelectList(ViewBag.GetListOfModule,"Id", "ModuleName"))">
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        </div>
+                    <div class="input-box" style="margin-top:4%">
+                        <input type="submit" value="Generate Key" id="GenerateKey"
+                               style="background:linear-gradient(135deg, #7badcf, #a88db3);font-weight:500;color:#FFFF">
+                    </div>
+                    <div class="input-box"> </div>
+                    <div class="input-box" style="margin-top:25px">
+                        <span class="details">Private Key</span>
+                        <input type="text" name="txtPrivateKey" id="txtPrivateKey" readonly>
+                    </div>
+                    <div class="input-box" style="margin-top:25px">
+                        <span class="details">Public Key</span>
+                        <input type="text" id="txtSerialKey" name="txtSerialKey" readonly>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">License Details</span>
+                        <textarea id="LicenseDetails" name="LicenseDetails" readonly style="width:100%;border-color:#9b59b6;border-bottom-width:2px">
+                            @ViewBag.LicDetails
+                        </textarea>
+                    </div>
+                    <input type="text" name="ListOfModuleValue" id="ListOfModuleValue" style="display:none" />
+                </div>
+                <div class="button">
+                    <input type="submit" value="Generate" id="Generate" asp-controller="Generate" asp-action="GenerateLicense" formmethod="post">
+                </div>
+            </section>
+        </div>
+    </div>
+
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/selectize.js-master/dist/js/selectize.js"></script>
+
+<script src="~/toastr-master/toastr-master/nuget/content/scripts/toastr.js"></script>
+<script src="~/toastr-master/toastr-master/build/toastr.min.js"></script>
+
+<script type="text/javascript">
+    $('#Module').selectize({
+        delimiter: ',',
+        persist: false,
+        create: function (input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+    });
+</script>
+<script type="text/javascript">
+    $('#Generate').click(function () {
+        var strErrorMsg = "";
+        var LicenseDetails = $('#LicenseDetails').val();
+        var Tenant = $('#Tenant option:selected').text();
+        var TenantID = $('#Tenant option:selected').val();
+        var txtProductID = $('#txtProductID').val();
+        var txtDays = $('#txtDays').val();
+        var txtUtilization = $('#txtUtilization').val();
+        var LicenseType = $('#LicenseType').val();
+        var options = $('#Module option:selected');
+        var selected = [];
+        $(options).each(function (index, brand) {
+            selected.push($(this).val());
+        });
+        $('#ListOfModuleValue').val(selected.join(','));
+        var ListOfModuleValue = $('#ListOfModuleValue').val();
+
+        var txtPrivateKey = $('#txtPrivateKey').val();
+        var txtSerialKey = $('#txtSerialKey').val();
+        var txtDomain = $('#Domain').val();
+
+
+        if (Tenant == "" || Tenant == null || Tenant == undefined) { strErrorMsg += "Please select the Tenant Name <br>"; }
+        if (txtProductID == "" || txtProductID == null || txtProductID == undefined) { strErrorMsg += "Please enter valid product id  <br>"; }
+        if (txtDays == "" || txtDays == null || txtDays == undefined) { strErrorMsg += "Please enter valid expiry days  <br>"; }
+        if (txtUtilization == "" || txtUtilization == null || txtUtilization == undefined) { strErrorMsg += "Please Enter the Utilization  <br>"; }
+        if (ListOfModuleValue == "" || ListOfModuleValue == null || ListOfModuleValue == undefined) { strErrorMsg += "Please Select the Module  <br>"; }
+        if (txtPrivateKey == "" || txtPrivateKey == null || txtPrivateKey == undefined) { strErrorMsg += "Please Generate the Private Key  <br>"; }
+        if (txtSerialKey == "" || txtSerialKey == null || txtSerialKey == undefined) { strErrorMsg += "Please Generate the Public Key <br>"; }
+        if (LicenseDetails == "" || LicenseDetails == null || LicenseDetails == undefined) { strErrorMsg += "Please Generate the License Details  <br>"; }
+        if (strErrorMsg != "") {
+            toastr.error(strErrorMsg);
+            return;
+        }
+        else {
+            $.post('/Generate/GenerateLicense', {
+                LicenseDetails: LicenseDetails, Tenant: Tenant,
+                txtProductID: txtProductID, txtDays: txtDays, txtUtilization: txtUtilization, ListOfModuleValue: ListOfModuleValue, LicenseType: LicenseType, txtDomain: txtDomain, txtSerialKey: txtSerialKey, TenantID: TenantID
+            },
+                function (response) {
+                    // toastr.success('License generated successfully');
+                    var downloadLink = $("<a style='display: none;'/>");
+
+                    // Set the href attribute to the file path
+                    downloadLink.attr("href", response.path);
+
+                    // Set the download attribute with the desired file name
+                    downloadLink.attr("download", response.fileName);
+
+                    // Append the anchor to the body and trigger a click event
+                    $("body").append(downloadLink);
+                    downloadLink[0].click();
+
+                    // Remove the anchor from the document
+                    downloadLink.remove();
+                    // $('#txtPrivateKey').val("");
+                    // $('#txtSerialKey').val("");
+                    // $('#LicenseDetails').val("");
+                    // setTimeout(
+                    //     function () {
+                    //         window.location.reload(true)
+                    //     }, 2000);
+                }).fail(function (data) {
+                    toastr.error('License generated failed');
+                });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $('#GenerateKey').click(function () {
+        var strErrorMsg = "";
+        var txtProductID = $('#txtProductID').val();
+        var txtDays = $('#txtDays').val();
+        var txtUtilization = $('#txtUtilization').val();
+        var Tenant = $('#Tenant option:selected').text();
+        var TenantID = $('#Tenant option:selected').val();
+        var Domain = $('#Domain').val();
+        var LicenseType = $('#LicenseType').val();
+
+        var options = $('#Module option:selected');
+        var selected = [];
+        $(options).each(function (index, brand) {
+            selected.push($(this).val());
+        });
+        $('#ListOfModuleValue').val(selected.join(','));
+        var ListOfModuleValue = $('#ListOfModuleValue').val();
+        if (ListOfModuleValue == "" || ListOfModuleValue == null || ListOfModuleValue == undefined) { strErrorMsg += "Please Select the Module  <br>"; }
+        if (Tenant == "" || Tenant == null || Tenant == undefined) { strErrorMsg += "Please select the Tenant Name <br>"; }
+        if (txtProductID == "" || txtProductID == null || txtProductID == undefined) { strErrorMsg += "Please enter valid product id  <br>"; }
+        if (txtDays == "" || txtDays == null || txtDays == undefined || txtDays <= 0) { strErrorMsg += "Please enter valid expiry days  <br>"; }
+        if (txtUtilization == "" || txtUtilization == null || txtUtilization == undefined) { strErrorMsg += "Please enter the Utilization  <br>"; }
+
+        if (strErrorMsg != "") {
+            toastr.error(strErrorMsg);
+            return;
+        }
+        else {
+            $.post('/Generate/generate', { txtProductID: txtProductID, txtDays: txtDays, txtUtilization: txtUtilization, Tenant: Tenant, ListOfModuleValue: ListOfModuleValue, Domain: Domain, LicenseType: LicenseType, TenantID: TenantID },
+                function (data) {
+                    console.log(data);
+                    $('#txtPrivateKey').val(data.privateKey);
+                    $('#txtSerialKey').val(data.publicKey);
+                    $('#LicenseDetails').val(data.licenseDetails);
+                }).fail(function (data) {
+                    toastr.success('Key generated failed');
+                });
+        }
+    });
+</script>
+</html>

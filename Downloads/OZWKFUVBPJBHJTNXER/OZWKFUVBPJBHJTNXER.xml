@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<License>
+	<Id>6146d5a9-fa74-470a-8974-5a76c25f7488</Id>
+	<Expiration>Sun, 24 Dec 2023 00:00:00 GMT</Expiration>
+	<Type>Standard</Type>
+	<LicenseAttributes>
+		<Attribute name="DeviceIdentifier"></Attribute>
+	</LicenseAttributes>
+	<Customer>
+		<Name>1</Name>
+	</Customer>
+	<Quantity>1</Quantity>
+	<Signature>MEQCIBh9rr2Z/21TtJY31oWFy2ExjSGZuWbt6EzGET6rneJgAiArs44LkcSbzAJ6Xf+m6byZzM8DyQZilBgwPWC7DAcnrA==</Signature>
+</License>
