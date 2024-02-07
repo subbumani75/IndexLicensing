@@ -5,5 +5,6 @@
         public string  PublicKey { get; set; }
         public string PrivateKey { get; set; }
         public string LicenseDetails { get; set; }
+        public string? ExpioredOn { get; set; }
     }
 }

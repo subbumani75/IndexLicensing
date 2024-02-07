@@ -13,6 +13,7 @@ using IndexInfo.LicenseHandler;
 using System;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Http;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IndexInfo.Controllers
 {
@@ -66,7 +67,7 @@ namespace IndexInfo.Controllers
             {
                 strErrorMsg += "Please enter valid expiry days";
             }
-
+            DateTime date = DateTime.Now;
             if (!string.IsNullOrEmpty(strErrorMsg))
             {
                 _toastNotification.AddErrorToastMessage(strErrorMsg);
@@ -75,13 +76,14 @@ namespace IndexInfo.Controllers
             {
                 Dictionary<string, string> dctKeyValuePair = new Dictionary<string, string>();
                 dctKeyValuePair = IndexLicenseKeyGenerator.LicenseKey.GenerateKeyPair();
-
+                date = DateTime.Now;
+                date = date.AddDays(Convert.ToInt32(txtDays));
                 foreach (var item in dctKeyValuePair)
                 {
                     strPrivateKey = item.Key.ToString();
                     strPublicKey = item.Value.ToString();
                 }
-                getNewLicense = IndexLicenseKeyGenerator.LicenseKey.GenerateLicense(strPrivateKey, Tenant.Trim(), strCurrentMachine, Convert.ToInt32(txtDays.Trim()), LicenseType.Trim(), Convert.ToInt32(txtUtilization.Trim()), txtProductID, Domain, ListOfModuleValue, TenantID);
+                getNewLicense = IndexLicenseKeyGenerator.LicenseKey.GenerateLicense(strPrivateKey, Tenant.Trim(), strCurrentMachine, Convert.ToInt32(txtDays.Trim()), LicenseType.Trim(), Convert.ToInt32(txtUtilization.Trim()), txtProductID, Domain, ListOfModuleValue, TenantID, date);
 				ViewBag.ClientName = Tenant;
                 GetListOfModule();
                 GetListCompanyName();
@@ -90,8 +92,8 @@ namespace IndexInfo.Controllers
             {
                 PublicKey = strPublicKey,
                 PrivateKey = strPrivateKey,
-                LicenseDetails = getNewLicense.ToString()
-
+                LicenseDetails = getNewLicense.ToString(),
+                ExpioredOn = date.ToString("yyyy-MM-dd HH:mm:ss"),
             };
             return Json(SetTheKeyValues);
         }
@@ -107,7 +109,7 @@ namespace IndexInfo.Controllers
         }
         [HttpPost]
         public IActionResult GenerateLicense(string LicenseDetails, string Tenant, string txtProductID, string txtDays,
-            string txtUtilization, string ListOfModuleValue, string LicenseType, string txtDomain,string txtSerialKey,string TenantID)
+            string txtUtilization, string ListOfModuleValue, string LicenseType, string txtDomain,string txtSerialKey,string TenantID, DateTime ExpioredOn)
         {
             string strFileName = "License.xml";
             string strLicfolderPath = GetLicenseFolderLocation(txtProductID);
@@ -163,7 +165,7 @@ namespace IndexInfo.Controllers
                             LicenseType = ddlLicenseType,
                             Module = GetItem,
                             GenarationOn = DateTime.Now,
-                            ExpiredOn = date,
+                            ExpiredOn = ExpioredOn,
                             Domain = txtDomain,
                         };
                         mainEntitys.licenses.Add(AddListOfData);

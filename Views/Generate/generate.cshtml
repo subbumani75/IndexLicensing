@@ -281,6 +281,7 @@
                         </textarea>
                     </div>
                     <input type="text" name="ListOfModuleValue" id="ListOfModuleValue" style="display:none" />
+                    <input type="hidden" name="ExpioredOn" id="hdn_expioreDate" /> 
                 </div>
                 <div class="button">
                     <input type="submit" value="Generate" id="Generate" asp-controller="Generate" asp-action="GenerateLicense" formmethod="post">
@@ -330,6 +331,7 @@
         var txtPrivateKey = $('#txtPrivateKey').val();
         var txtSerialKey = $('#txtSerialKey').val();
         var txtDomain = $('#Domain').val();
+        var expioredOn = $('#hdn_expioreDate').val();
 
 
         if (Tenant == "" || Tenant == null || Tenant == undefined) { strErrorMsg += "Please select the Tenant Name <br>"; }
@@ -347,7 +349,7 @@
         else {
             $.post('/Generate/GenerateLicense', {
                 LicenseDetails: LicenseDetails, Tenant: Tenant,
-                txtProductID: txtProductID, txtDays: txtDays, txtUtilization: txtUtilization, ListOfModuleValue: ListOfModuleValue, LicenseType: LicenseType, txtDomain: txtDomain, txtSerialKey: txtSerialKey, TenantID: TenantID
+                txtProductID: txtProductID, txtDays: txtDays, txtUtilization: txtUtilization, ListOfModuleValue: ListOfModuleValue, LicenseType: LicenseType, txtDomain: txtDomain, txtSerialKey: txtSerialKey, TenantID: TenantID, ExpioredOn: expioredOn
             },
                 function (response) {
                     // toastr.success('License generated successfully');
@@ -414,6 +416,7 @@
                     $('#txtPrivateKey').val(data.privateKey);
                     $('#txtSerialKey').val(data.publicKey);
                     $('#LicenseDetails').val(data.licenseDetails);
+                    $('#hdn_expioreDate').val(data.expioredOn);
                 }).fail(function (data) {
                     toastr.success('Key generated failed');
                 });

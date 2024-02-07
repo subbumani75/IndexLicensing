@@ -16,6 +16,7 @@ namespace IndexInfo.Models
         public string Module { get; set; }
         public DateTime GenarationOn { get; set; }
         public DateTime ExpiredOn { get; set; }
+        //public bool IsActive { get; set; }
         public string? Domain { get; set; }
     }
 }

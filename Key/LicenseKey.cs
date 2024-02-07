@@ -48,7 +48,7 @@ namespace IndexLicenseKeyGenerator
             return strRetValue;
         }
 
-        public static string GenerateLicense(string privateKey, string customerName, string deviceIdentifier, int days, string licenseType, int utilization,string ProductID,string Domain,string ListOfModuleValue,string TenantID)
+        public static string GenerateLicense(string privateKey, string customerName, string deviceIdentifier, int days, string licenseType, int utilization,string ProductID,string Domain,string ListOfModuleValue,string TenantID, DateTime ExpioredOn)
         {
             //string strRetValue = "";
 
@@ -93,6 +93,10 @@ namespace IndexLicenseKeyGenerator
                 .WithAdditionalAttributes(new Dictionary<string, string>
                 {
                         { "TenantID", TenantID }
+                })
+                .WithAdditionalAttributes(new Dictionary<string, string>
+                {
+                        { "ExpioredOn",  ExpioredOn.ToString("yyyy-MM-dd HH:mm:ss")}
                 })
                 .LicensedTo((c) => c.Name = customerName)
                 .WithMaximumUtilization(utilization)
